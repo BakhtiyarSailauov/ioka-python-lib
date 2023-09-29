@@ -1,0 +1,2473 @@
+{
+	"info": {
+		"_postman_id": "dbafe1b5-db0a-4c04-b153-a99afaf8527c",
+		"name": "stage-api.ioka.kz/v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30112322"
+	},
+	"item": [
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "CreateOrder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json()",
+									"if(jsonData.order != null) {",
+									"\tif(jsonData.order.id != null) {",
+									"\t\tpm.collectionVariables.set(\"order_id\", jsonData.order.id)",
+									"\t}",
+									"}",
+									"if(jsonData.order_access_token != null) {",
+									"\tpm.collectionVariables.set(\"order_access_token\", jsonData.order_access_token)",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 10000,\n\t\"capture_method\": \"MANUAL\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CaptureOrder",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 10000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/capture",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"capture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelOrder",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"reason\": \"some good reason\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/cancel",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefundOrder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"refund_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/refunds",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrderByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrderEvents",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/events",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRefunds",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/refunds",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRefundByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/refunds/{{refund_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"refunds",
+								"{{refund_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payments",
+			"item": [
+				{
+					"name": "CreateCardPayment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"payment_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pan\": \"{{tds_pan}}\",\n\t\"exp\": \"12/24\",\n\t\"holder\": \"Bio Mio\",\n\t\"cvc\": \"123\",\n\t\"save\": true,\n\t\"email\": \"adam@emes.kz\",\n\t\"phone\": \"+77472550778\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments/card",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePayment - payment_method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"payment_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var Header = require('postman-collection').Header",
+									"",
+									"request_id = parseInt(pm.collectionVariables.get(\"request_id\")) + 1",
+									"pm.request.headers.add(new Header(\"X-Request-ID: \" + request_id))",
+									"pm.collectionVariables.set(\"request_id\", request_id)",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{order_access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"payment_method\": {\n\t\t\"token\": \"{{payment_token}}\",\n\t\t\"save_card\": true\n\t},\n\t\"contacts\": {\n\t\t\"email\": \"violetta@kri.kz\",\n\t\t\"phone\": \"+77472550778\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePayment - customer_card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"payment_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var Header = require('postman-collection').Header",
+									"",
+									"request_id = parseInt(pm.collectionVariables.get(\"request_id\")) + 1",
+									"pm.request.headers.add(new Header(\"X-Request-ID: \" + request_id))",
+									"pm.collectionVariables.set(\"request_id\", request_id)",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customer_card\": {\n\t\t\"card_id\": \"{{card_id}}\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CapturePayment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var Header = require('postman-collection').Header",
+									"",
+									"request_id = parseInt(pm.collectionVariables.get(\"request_id\")) + 1",
+									"pm.request.headers.add(new Header(\"X-Request-ID: \" + request_id))",
+									"pm.collectionVariables.set(\"request_id\", request_id)"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments/{{payment_id}}/capture",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments",
+								"{{payment_id}}",
+								"capture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelPayment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var Header = require('postman-collection').Header",
+									"",
+									"request_id = parseInt(pm.collectionVariables.get(\"request_id\")) + 1",
+									"pm.request.headers.add(new Header(\"X-Request-ID: \" + request_id))",
+									"pm.collectionVariables.set(\"request_id\", request_id)"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments/{{payment_id}}/cancel",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments",
+								"{{payment_id}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check3DS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/{{payment_id}}/check3ds",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"{{payment_id}}",
+								"check3ds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPaymentByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var Header = require('postman-collection').Header",
+									"",
+									"request_id = parseInt(pm.collectionVariables.get(\"request_id\")) + 1",
+									"pm.request.headers.add(new Header(\"X-Request-ID: \" + request_id))",
+									"pm.collectionVariables.set(\"request_id\", request_id)"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments/{{payment_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments",
+								"{{payment_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "refunds",
+			"item": [
+				{
+					"name": "CreateRefund",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"refund_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 500,\n\t\"reason\": \"reason\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments/{{payment_id}}/refunds",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments",
+								"{{payment_id}}",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRefunds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"refund_id\", jsonData.id);",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/orders/{{order_id}}/payments/{{payment_id}}/refunds",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"orders",
+								"{{order_id}}",
+								"payments",
+								"{{payment_id}}",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customers",
+			"item": [
+				{
+					"name": "CreateCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"customer_id\", jsonData.id);",
+									"",
+									"var jsonData = pm.response.json()",
+									"if(jsonData.customer != null) {",
+									"\tif(jsonData.customer.id != null) {",
+									"\t\tpm.collectionVariables.set(\"customer_id\", jsonData.customer.id)",
+									"\t}",
+									"}",
+									"if(jsonData.customer_access_token != null) {",
+									"\tpm.collectionVariables.set(\"customer_access_token\", jsonData.customer_access_token)",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"tyler.crown2@ioka.kz\",\n\t\"phone\": \"77472550778\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/customers",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers?offset=0&limit=5",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomerByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomerEvents",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{customer_access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}/events",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCustomerByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cards",
+			"item": [
+				{
+					"name": "CreateCard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"card_id\", jsonData.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{customer_access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\": \"{{payment_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}/cards",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBinding",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"card_id\", jsonData.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "x-customer-access-token",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{customer_access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pan\": \"{{pan}}\",\n\t\"exp\": \"12/24\",\n\t\"cvc\": \"123\",\n\t\"holder\": \"bio mio\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}/bindings",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}",
+								"bindings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCards",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "X-CUSTOMER-ACCESS-TOKEN",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{customer_access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}/cards",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCardByID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"card_id\", jsonData.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}/cards/{{card_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}",
+								"cards",
+								"{{card_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCardByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/customers/{{customer_id}}/cards/{{card_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"customers",
+								"{{customer_id}}",
+								"cards",
+								"{{card_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "webhooks",
+			"item": [
+				{
+					"name": "CreateWebhook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json()",
+									"if(jsonData.id != null) {",
+									"\tpm.collectionVariables.set(\"webhook_id\", jsonData.id)",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"url\": \"https://bf18-194-76-126-217.ngrok.io/payment\",\n\t\"events\": [\"PAYMENT_APPROVED\", \"PAYMENT_CAPTURED\", \"PAYMENT_CANCELLED\", \"PAYMENT_DECLINED\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/webhooks",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"webhooks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetWebhooks",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/webhooks",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"webhooks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetWebhookByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/webhooks/{{webhook_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"webhooks",
+								"{{webhook_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateWebhookByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"events\": [\"PAYMENT_APPROVED\", \"PAYMENT_CAPTURED\", \"PAYMENT_CANCELLED\", \"PAYMENT_DECLINED\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/webhooks/{{webhook_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"webhooks",
+								"{{webhook_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteWebhookByID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/webhooks/{{webhook_id}}",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"webhooks",
+								"{{webhook_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment-methods",
+			"item": [
+				{
+					"name": "CreatePaymentMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json()",
+									"pm.collectionVariables.set(\"payment_token\", jsonData.token)",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_tool\": {\n    \"type\": \"CARD\",\n    \"pan\": \"{{pan}}\",\n    \"expiry_date\": \"12/24\",\n    \"cvc\": \"123\",\n    \"holder\": \"BIO MIO\"\n  },\n  \"client\": {\n\t  \"ip\": \"8.8.8.8\",\n\t  \"fingerprint\": \"fp\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}/v2/payment-methods",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"payment-methods"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "brands",
+			"item": [
+				{
+					"name": "GetPaymentSystemByBIN",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/brands?partial_bin=5169",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"brands"
+							],
+							"query": [
+								{
+									"key": "partial_bin",
+									"value": "5169"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bins",
+			"item": [
+				{
+					"name": "GetBINInfo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/bins/516949",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"bins",
+								"516949"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "analytics",
+			"item": [
+				{
+					"name": "Timeline",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/analytics/timeline?to_dt=2022-01-22T00:00:00",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"analytics",
+								"timeline"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2022-01-22T00:00:00"
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-12-01T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "date_category",
+									"value": "DAILY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aggregations",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/analytics/aggregations",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"analytics",
+								"aggregations"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2022-01-22T00:00:00",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PaymentStatuses",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/analytics/payment-statuses",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"analytics",
+								"payment-statuses"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2022-01-22T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-12-01T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "date_category",
+									"value": "DAILY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Emitters",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/analytics/emitters",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"analytics",
+								"emitters"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2022-01-22T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-12-01T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "date_category",
+									"value": "DAILY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PaymentSystems",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/analytics/payment-systems",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"analytics",
+								"payment-systems"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2022-01-22T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-12-01T00:00:00",
+									"disabled": true
+								},
+								{
+									"key": "date_category",
+									"value": "DAILY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "search",
+			"item": [
+				{
+					"name": "SearchOrders",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/search/orders",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"search",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2021-11-18 18:54:33",
+									"disabled": true
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-10-13 18:54:33",
+									"disabled": true
+								},
+								{
+									"key": "order_id",
+									"value": "ord_ET9V456Y88",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchPayments",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/search/payments",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"search",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2021-11-18 18:54:33",
+									"disabled": true
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-10-13 18:54:33",
+									"disabled": true
+								},
+								{
+									"key": "order_id",
+									"value": "ord_ET9V456Y88",
+									"disabled": true
+								},
+								{
+									"key": "payment_status",
+									"value": "APPROVED",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchRefunds",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "API-KEY",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{api_key}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}/v2/search/refunds",
+							"host": [
+								"{{api_host}}"
+							],
+							"path": [
+								"v2",
+								"search",
+								"refunds"
+							],
+							"query": [
+								{
+									"key": "to_dt",
+									"value": "2021-11-18 18:54:33",
+									"disabled": true
+								},
+								{
+									"key": "from_dt",
+									"value": "2021-10-13 18:54:33",
+									"disabled": true
+								},
+								{
+									"key": "external_id",
+									"value": "ord_ET9V456Y88",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_host",
+			"value": "https://stage-api.ioka.kz"
+		},
+		{
+			"key": "api_key",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJleHAiOjE3NjYzODAzNjIsImlhdCI6MTY0NTc5MjU1OSwiYXpwIjoiZGFzaGJvYXJkIiwiaXNzIjoiZ2FybWl1cyIsInN1YiI6InVzcl9hNDNhMmU3NC0zYWUzLTRmOGMtYTk2Ni03NjA2NTNkOGFjODQiLCJhdWQiOlsic3BsaXQiLCJpZGVudGl0eSIsInRva2VuaXplciIsImN1c3RvbWVyIiwicGF5b3V0cyIsIndhbGxldCIsImNvcmUiXSwicmVzb3VyY2VfYWNjZXNzIjp7InNwbGl0Ijp7InJvbGVzIjpbInNwbGl0czpyZWFkIiwic3BsaXRzOndyaXRlIiwic3BsaXRzOnJlbW92ZSIsInNwbGl0cy5ldmVudHM6cmVhZCIsInNwbGl0cy53ZWJob29rczp3cml0ZSIsInNwbGl0cy53ZWJob29rczpyZWFkIiwic3BsaXRzLndlYmhvb2tzOnJlbW92ZSJdfSwiaWRlbnRpdHkiOnsicm9sZXMiOlsiaWRlbnRpdGllcy5jbGFzc2VzOnJlYWQiLCJpZGVudGl0aWVzLmNsYXNzZXM6d3JpdGUiLCJpZGVudGl0aWVzLmNsYXNzZXM6cmVtb3ZlIiwiaWRlbnRpdGllczpyZWFkIiwiaWRlbnRpdGllczp3cml0ZSIsImlkZW50aXRpZXM6cmVtb3ZlIl19LCJ0b2tlbml6ZXIiOnsicm9sZXMiOlsicGF5bWVudC1tZXRob2RzOndyaXRlIl19LCJjdXN0b21lciI6eyJyb2xlcyI6WyJjdXN0b21lcnM6d3JpdGUiLCJjdXN0b21lcnM6cmVhZCIsImN1c3RvbWVycy4qLmNhcmRzOndyaXRlIiwiY3VzdG9tZXJzLiouY2FyZHM6cmVhZCJdfSwicGF5b3V0cyI6eyJyb2xlcyI6WyJwYXlvdXQtb3JkZXJzOndyaXRlIiwicGF5b3V0LW9yZGVyczpyZWFkIiwicmVjZWl2ZXJzOnJlYWQiLCJyZWNlaXZlcnM6d3JpdGUiLCJwYXlvdXQtd2ViaG9va3M6d3JpdGUiLCJwYXlvdXQtd2ViaG9va3M6cmVhZCJdfSwid2FsbGV0Ijp7InJvbGVzIjpbIndhbGxldHM6cmVhZCIsIndhbGxldHM6d3JpdGUiLCJ3YWxsZXRzOnJlbW92ZSIsIndhbGxldHMuYWNjb3VudDpyZWFkIiwid2FsbGV0cy5ldmVudHM6cmVhZCIsIndhbGxldHMudHJhbnNhY3Rpb25zOnJlYWQiLCJ3YWxsZXRzLnRyYW5zYWN0aW9uczp3cml0ZSIsIndhbGxldHMudHJhbnNhY3Rpb25zOnJlbW92ZSIsIndhbGxldHMudzJ3OndyaXRlIiwid2FsbGV0cy53Mnc6cmVhZCIsIndhbGxldHMud2ViaG9va3M6d3JpdGUiLCJ3YWxsZXRzLndlYmhvb2tzOnJlYWQiLCJ3YWxsZXRzLndlYmhvb2tzOnJlbW92ZSIsIndpdGhkcmF3YWxzOnJlYWQiLCJ3aXRoZHJhd2Fsczp3cml0ZSIsIndpdGhkcmF3YWxzOnJlbW92ZSJdfSwiY29yZSI6eyJyb2xlcyI6WyJvcmRlcnM6d3JpdGUiLCJvcmRlcnM6cmVhZCIsIm9yZGVycy4qLnBheW1lbnRzOndyaXRlIiwib3JkZXJzLioucGF5bWVudHM6cmVhZCIsIm9yZGVycy4qLnBheW1lbnRzLioucmVmdW5kczp3cml0ZSIsIm9yZGVycy4qLnBheW1lbnRzLioucmVmdW5kczpyZWFkIiwid2ViaG9va3M6d3JpdGUiLCJ3ZWJob29rczpyZWFkIiwic3Vic2NyaXB0aW9uczp3cml0ZSIsInN1YnNjcmlwdGlvbnM6cmVhZCIsInN1YnNjcmlwdGlvbnMuKi5vcmRlcnMuKi5wYXltZW50czp3cml0ZSIsInN1YnNjcmlwdGlvbnMuKi5vcmRlcnMuKi5wYXltZW50czpyZWFkIl19fSwidXNlciI6eyJpZCI6InVzcl9hNDNhMmU3NC0zYWUzLTRmOGMtYTk2Ni03NjA2NTNkOGFjODQiLCJkaXNwbGF5X25hbWUiOiJBaWt1bWlzIEthbGkiLCJ1c2VybmFtZSI6ImEua2FsaUBpb2thLmt6IiwiZmlyc3RfbmFtZSI6IkFpa3VtaXMiLCJsYXN0X25hbWUiOiJLYWxpIiwiZW1haWwiOiJhLmthbGlAaW9rYS5reiIsInN0YXR1cyI6IkFDVElWRSJ9LCJzaG9wIjp7ImlkIjoic2hwX1NOTDcwOFgwUEkiLCJvd25lcl9pZCI6InVzcl9hNDNhMmU3NC0zYWUzLTRmOGMtYTk2Ni03NjA2NTNkOGFjODQiLCJiaW4iOiIxMjM0NTY3ODkiLCJkaXNwbGF5X25hbWUiOiJwb3N0bWFuLXN0YWdlLXNob3AiLCJzdGF0dXMiOiJBQ0NFUFRFRCJ9LCJsb2NhbGUiOiJydSJ9.P_F6hKQqNmasMrvN17N14Nd5QyVmRpUcL0GEv7UkBwBAo62uM3Gqd698CCYTj971k4RgKsHCSVhBzr5_sssQIHTgTX31-lUxUXQsXXGJ-zbMoSw5CCKC_sbZFeCwDN52UrdGUX-C4ytFh-C7rDFke155jBH2QeA1WsTHs-oPROhE5sY7tR2XiHE1JWS4bVQdxyuXJq8M4RJYBw1vtXJDWuRgYArPNziSHKDjKLgr9khwM6_7DRZGyDAgrP1UgbXJ--VyUofaNS97U2JUjBWk_Uv7sOnh_LcleWzAZ9TeftbyebDFJwRMzD0lLX_EobFYIVBph440cTABYnkOtFHQwQ"
+		},
+		{
+			"key": "payment_token",
+			"value": ""
+		},
+		{
+			"key": "customer_id",
+			"value": ""
+		},
+		{
+			"key": "order_external_id",
+			"value": "1"
+		},
+		{
+			"key": "card_id",
+			"value": ""
+		},
+		{
+			"key": "order_id",
+			"value": ""
+		},
+		{
+			"key": "webhook_id",
+			"value": ""
+		},
+		{
+			"key": "payment_id",
+			"value": ""
+		},
+		{
+			"key": "refund_id",
+			"value": ""
+		},
+		{
+			"key": "order_access_token",
+			"value": ""
+		},
+		{
+			"key": "customer_access_token",
+			"value": ""
+		},
+		{
+			"key": "pan",
+			"value": "5555555555555599",
+			"type": "string"
+		},
+		{
+			"key": "tds_pan",
+			"value": "4111111111111111",
+			"type": "string"
+		}
+	]
+}

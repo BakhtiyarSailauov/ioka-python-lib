@@ -1,2 +1,7 @@
 .idea
 venv
+.pytest_cache
+tests/.pytest_cache
+ioka/__pycache__/
+ioka/models/__pycache__/
+tests/__pycache__/
